@@ -4,17 +4,21 @@
  */
 package com.mycompany.agendamelhorada;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author pedro
  */
 public class Tela_Cadastro extends javax.swing.JPanel {
+        
 
     /**
      * Creates new form Tela_Cadastro
      */
     public Tela_Cadastro() {
         initComponents();
+        add(new JLabel("Tela de Cadastro"));
      
     }
 
@@ -57,6 +61,7 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         btCadastro.setBackground(new java.awt.Color(37, 99, 235));
         btCadastro.setText("Cadastrar Contato");
         btCadastro.setBorderPainted(false);
+        btCadastro.addActionListener(this::btCadastroActionPerformed);
 
         btAlterar.setBackground(new java.awt.Color(23, 37, 84));
         btAlterar.setText("Alterar/Remover");
@@ -245,6 +250,10 @@ public class Tela_Cadastro extends javax.swing.JPanel {
     private void textoNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNomeActionPerformed
+
+    private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btCadastroActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
