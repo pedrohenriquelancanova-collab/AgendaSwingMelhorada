@@ -6,9 +6,6 @@
     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
       <Color blue="ff" green="ff" red="ff" type="rgb"/>
     </Property>
-    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[900, 600]"/>
-    </Property>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -42,9 +39,9 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jPanel2" max="32767" attributes="0"/>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -111,6 +108,9 @@
             <Property name="text" type="java.lang.String" value="In&#xed;cio"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btInicioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btCadastro">
           <Properties>
@@ -132,6 +132,9 @@
             <Property name="text" type="java.lang.String" value="Alterar/Remover"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAlterarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSoftware">
           <Properties>
@@ -141,6 +144,9 @@
             <Property name="text" type="java.lang.String" value="Sobre o Software"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSoftwareActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btConsultar">
           <Properties>
@@ -165,11 +171,14 @@
             <Property name="text" type="java.lang.String" value="Sair"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSairActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+              <Color blue="54" green="25" red="17" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="MENU"/>
           </Properties>
@@ -270,6 +279,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CADASTRAR CONTATO"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btCadastro2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btContatos2">
           <Properties>
@@ -284,6 +296,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CONSULTAR CONTATOS"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btContatos2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btAlterar2">
           <Properties>
@@ -295,6 +310,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ALTERAR/REMOVER"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAlterar2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSoftware2">
           <Properties>
@@ -309,6 +327,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="SOBRE O SOFTWARE"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSoftware2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>

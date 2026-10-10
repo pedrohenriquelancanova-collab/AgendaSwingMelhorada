@@ -5,21 +5,34 @@
 package com.mycompany.agendamelhorada;
 
 import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author pedro
  */
 public class Tela_Cadastro extends javax.swing.JPanel {
-        
 
     /**
      * Creates new form Tela_Cadastro
      */
     public Tela_Cadastro() {
         initComponents();
-        add(new JLabel("Tela de Cadastro"));
-     
+
+        // Layout principal da tela
+        setLayout(new BorderLayout());
+
+        // Menu lateral
+        jPanel1.setPreferredSize(new Dimension(200, 0));
+
+        // Área de conteúdo
+        jPanel2.setBackground(java.awt.Color.WHITE);
+
+        // Organiza os dois painéis
+        add(jPanel1, BorderLayout.WEST);
+        add(jPanel2, BorderLayout.CENTER);
     }
 
     /**
@@ -57,6 +70,7 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         btInicio.setBackground(new java.awt.Color(23, 37, 84));
         btInicio.setText("Início");
         btInicio.setBorderPainted(false);
+        btInicio.addActionListener(this::btInicioActionPerformed);
 
         btCadastro.setBackground(new java.awt.Color(37, 99, 235));
         btCadastro.setText("Cadastrar Contato");
@@ -66,19 +80,23 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         btAlterar.setBackground(new java.awt.Color(23, 37, 84));
         btAlterar.setText("Alterar/Remover");
         btAlterar.setBorderPainted(false);
+        btAlterar.addActionListener(this::btAlterarActionPerformed);
 
         btSoftware.setBackground(new java.awt.Color(23, 37, 84));
         btSoftware.setText("Sobre o Software");
         btSoftware.setBorderPainted(false);
+        btSoftware.addActionListener(this::btSoftwareActionPerformed);
 
         btConsultar.setBackground(new java.awt.Color(23, 37, 84));
         btConsultar.setText("Consultar Contato");
         btConsultar.setBorderPainted(false);
+        btConsultar.addActionListener(this::btConsultarActionPerformed);
 
         btSair.setBackground(new java.awt.Color(23, 37, 84));
         btSair.setForeground(new java.awt.Color(220, 38, 38));
         btSair.setText("Sair");
         btSair.setBorderPainted(false);
+        btSair.addActionListener(this::btSairActionPerformed);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MENU");
@@ -116,7 +134,7 @@ public class Tela_Cadastro extends javax.swing.JPanel {
                 .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addGap(22, 22, 22))
         );
@@ -146,29 +164,48 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         textoNome.setBackground(new java.awt.Color(255, 255, 255));
         textoNome.setForeground(new java.awt.Color(100, 116, 139));
         textoNome.setText("Digite o nome completo");
+        textoNome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoNomeMouseClicked(evt);
+            }
+        });
         textoNome.addActionListener(this::textoNomeActionPerformed);
 
         textoEmail.setBackground(new java.awt.Color(255, 255, 255));
         textoEmail.setForeground(new java.awt.Color(100, 116, 139));
-        textoEmail.setText("Digite o e-mail");
+        textoEmail.setText("EX: aaaa@gmail.com");
+        textoEmail.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoEmailMouseClicked(evt);
+            }
+        });
+        textoEmail.addActionListener(this::textoEmailActionPerformed);
 
         textoTelefone.setBackground(new java.awt.Color(255, 255, 255));
         textoTelefone.setForeground(new java.awt.Color(100, 116, 139));
-        textoTelefone.setText("Digite o telefone");
+        textoTelefone.setText("EX: (55)999999999");
+        textoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoTelefoneMouseClicked(evt);
+            }
+        });
 
         btSalvar.setBackground(new java.awt.Color(37, 99, 235));
         btSalvar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btSalvar.setText("SALVAR");
+        btSalvar.addActionListener(this::btSalvarActionPerformed);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setForeground(new java.awt.Color(100, 116, 139));
         jButton2.setText("LIMPAR");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         btVoltar.setBackground(new java.awt.Color(255, 255, 255));
         btVoltar.setForeground(new java.awt.Color(100, 116, 139));
         btVoltar.setText("VOLTAR");
+        btVoltar.addActionListener(this::btVoltarActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -220,9 +257,9 @@ public class Tela_Cadastro extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -241,8 +278,8 @@ public class Tela_Cadastro extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -254,6 +291,83 @@ public class Tela_Cadastro extends javax.swing.JPanel {
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btCadastroActionPerformed
+
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        Tela_Principal.frame.voltarInicio();// TODO add your handling code here:
+
+    }//GEN-LAST:event_btInicioActionPerformed
+
+    private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Consulta());                // TODO add your handling code here:
+    }//GEN-LAST:event_btConsultarActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Remover());        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSoftwareActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_SobreoSoftware());        // TODO add your handling code here:
+    }//GEN-LAST:event_btSoftwareActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
+
+        String nome = textoNome.getText();
+        String email = textoEmail.getText();
+        String telefone = textoTelefone.getText();
+
+        if (nome.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Digite o nome!");
+
+        }
+
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+
+        }
+
+        if (!telefone.matches("\\(?\\d{2}\\)?\\s?9\\d{4}-?\\d{4}")) {
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+
+        } else {
+            Contato contato = new Contato(nome, email, telefone);
+
+            Arquivo arq = new Arquivo();
+
+            arq.gravar(contato);
+
+            JOptionPane.showMessageDialog(this, "Contato salvo com sucesso!");
+        }
+    }//GEN-LAST:event_btSalvarActionPerformed
+
+    private void textoNomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoNomeMouseClicked
+        textoNome.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNomeMouseClicked
+
+    private void textoEmailMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoEmailMouseClicked
+        textoEmail.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_textoEmailMouseClicked
+
+    private void textoTelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoTelefoneMouseClicked
+        textoTelefone.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_textoTelefoneMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        textoNome.setText("");
+        textoEmail.setText("");
+        textoTelefone.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
+        Tela_Principal.frame.voltarInicio();        // TODO add your handling code here:
+    }//GEN-LAST:event_btVoltarActionPerformed
+
+    private void textoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textoEmailActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

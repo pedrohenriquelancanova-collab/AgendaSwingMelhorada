@@ -174,10 +174,12 @@ public class Tela_Remover extends javax.swing.JPanel {
         btInicio.setBackground(new java.awt.Color(23, 37, 84));
         btInicio.setText("Início");
         btInicio.setBorderPainted(false);
+        btInicio.addActionListener(this::btInicioActionPerformed);
 
         btCadastro.setBackground(new java.awt.Color(23, 37, 84));
         btCadastro.setText("Cadastrar Contato");
         btCadastro.setBorderPainted(false);
+        btCadastro.addActionListener(this::btCadastroActionPerformed);
 
         btAlterar.setBackground(new java.awt.Color(37, 99, 235));
         btAlterar.setText("Alterar/Remover");
@@ -186,15 +188,18 @@ public class Tela_Remover extends javax.swing.JPanel {
         btSoftware.setBackground(new java.awt.Color(23, 37, 84));
         btSoftware.setText("Sobre o Software");
         btSoftware.setBorderPainted(false);
+        btSoftware.addActionListener(this::btSoftwareActionPerformed);
 
         btConsultar.setBackground(new java.awt.Color(23, 37, 84));
         btConsultar.setText("Consultar Contato");
         btConsultar.setBorderPainted(false);
+        btConsultar.addActionListener(this::btConsultarActionPerformed);
 
         btSair.setBackground(new java.awt.Color(23, 37, 84));
         btSair.setForeground(new java.awt.Color(220, 38, 38));
         btSair.setText("Sair");
         btSair.setBorderPainted(false);
+        btSair.addActionListener(this::btSairActionPerformed);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MENU");
@@ -232,7 +237,7 @@ public class Tela_Remover extends javax.swing.JPanel {
                 .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addGap(22, 22, 22))
         );
@@ -372,14 +377,14 @@ public class Tela_Remover extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(18, 18, 18)
-                            .addComponent(btAlterarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(35, 35, 35)
+                                    .addGap(163, 163, 163)
                                     .addComponent(btVoltarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addGap(34, 34, 34)
+                                    .addComponent(btAlterarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
                                     .addComponent(btRemoverTelaRemover))))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -418,16 +423,16 @@ public class Tela_Remover extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(49, 49, 49)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btAlterarTelaAlterar)
-                            .addComponent(btRemoverTelaRemover, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btRemoverTelaRemover)
+                            .addComponent(btAlterarTelaAlterar))
+                        .addGap(18, 18, 18)
                         .addComponent(btVoltarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(23, 23, 23))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -448,7 +453,7 @@ public class Tela_Remover extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(4, 4, 4))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -459,6 +464,26 @@ public class Tela_Remover extends javax.swing.JPanel {
     private void textoNome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNome1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoNome1ActionPerformed
+
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        Tela_Principal.frame.voltarInicio();        // TODO add your handling code here:
+    }//GEN-LAST:event_btInicioActionPerformed
+
+    private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Consulta());        // TODO add your handling code here:
+    }//GEN-LAST:event_btConsultarActionPerformed
+
+    private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Cadastro());        // TODO add your handling code here:
+    }//GEN-LAST:event_btCadastroActionPerformed
+
+    private void btSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSoftwareActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_SobreoSoftware());        // TODO add your handling code here:
+    }//GEN-LAST:event_btSoftwareActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btSairActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

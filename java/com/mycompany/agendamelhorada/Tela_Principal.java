@@ -12,17 +12,38 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author pedro
  */
 public class Tela_Principal extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Tela_Principal.class.getName());
-    
+
+    static Tela_Principal frame;
+    private java.awt.Container painelInicial;
+
     /**
      * Creates new form Tela_Principal
      */
     public Tela_Principal() {
         initComponents();
-        setSize(900, 600);
+        painelInicial = (javax.swing.JPanel) getContentPane();
+
+        setSize(1000, 650);
         setLocationRelativeTo(null);
-        
+
+    }
+
+    public void trocarTela(javax.swing.JPanel tela) {
+        setContentPane(tela);
+
+        setSize(1000, 650);
+        setLocationRelativeTo(null);
+
+        revalidate();
+        repaint();
+    }
+
+    public void voltarInicio() {
+        setContentPane(painelInicial);
+        revalidate();
+        repaint();
     }
 
     /**
@@ -53,13 +74,13 @@ public class Tela_Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(900, 600));
 
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
 
         btInicio.setBackground(new java.awt.Color(37, 99, 235));
         btInicio.setText("Início");
         btInicio.setBorderPainted(false);
+        btInicio.addActionListener(this::btInicioActionPerformed);
 
         btCadastro.setBackground(new java.awt.Color(23, 37, 84));
         btCadastro.setText("Cadastrar Contato");
@@ -69,10 +90,12 @@ public class Tela_Principal extends javax.swing.JFrame {
         btAlterar.setBackground(new java.awt.Color(23, 37, 84));
         btAlterar.setText("Alterar/Remover");
         btAlterar.setBorderPainted(false);
+        btAlterar.addActionListener(this::btAlterarActionPerformed);
 
         btSoftware.setBackground(new java.awt.Color(23, 37, 84));
         btSoftware.setText("Sobre o Software");
         btSoftware.setBorderPainted(false);
+        btSoftware.addActionListener(this::btSoftwareActionPerformed);
 
         btConsultar.setBackground(new java.awt.Color(23, 37, 84));
         btConsultar.setText("Consultar Contato");
@@ -83,8 +106,9 @@ public class Tela_Principal extends javax.swing.JFrame {
         btSair.setForeground(new java.awt.Color(220, 38, 38));
         btSair.setText("Sair");
         btSair.setBorderPainted(false);
+        btSair.addActionListener(this::btSairActionPerformed);
 
-        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setBackground(new java.awt.Color(23, 37, 84));
         jLabel1.setText("MENU");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -139,20 +163,24 @@ public class Tela_Principal extends javax.swing.JFrame {
         btCadastro2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btCadastro2.setForeground(new java.awt.Color(0, 0, 0));
         btCadastro2.setText("CADASTRAR CONTATO");
+        btCadastro2.addActionListener(this::btCadastro2ActionPerformed);
 
         btContatos2.setBackground(new java.awt.Color(255, 255, 255));
         btContatos2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btContatos2.setForeground(new java.awt.Color(0, 0, 0));
         btContatos2.setText("CONSULTAR CONTATOS");
+        btContatos2.addActionListener(this::btContatos2ActionPerformed);
 
         btAlterar2.setBackground(new java.awt.Color(255, 255, 255));
         btAlterar2.setForeground(new java.awt.Color(0, 0, 0));
         btAlterar2.setText("ALTERAR/REMOVER");
+        btAlterar2.addActionListener(this::btAlterar2ActionPerformed);
 
         btSoftware2.setBackground(new java.awt.Color(255, 255, 255));
         btSoftware2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btSoftware2.setForeground(new java.awt.Color(0, 0, 0));
         btSoftware2.setText("SOBRE O SOFTWARE");
+        btSoftware2.addActionListener(this::btSoftware2ActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(100, 116, 139));
@@ -214,9 +242,9 @@ public class Tela_Principal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -224,17 +252,53 @@ public class Tela_Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btConsultarActionPerformed
-         // TODO add your handling code here:
+        trocarTela(new Tela_Consulta());
     }//GEN-LAST:event_btConsultarActionPerformed
 
     private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
-                        // TODO add your handling code here:
+
+        trocarTela(new Tela_Cadastro());
+
     }//GEN-LAST:event_btCadastroActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        trocarTela(new Tela_Remover());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSoftwareActionPerformed
+        trocarTela(new Tela_SobreoSoftware());// TODO add your handling code here:
+
+    }//GEN-LAST:event_btSoftwareActionPerformed
+
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btInicioActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void btCadastro2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastro2ActionPerformed
+        trocarTela(new Tela_Cadastro());        // TODO add your handling code here:
+    }//GEN-LAST:event_btCadastro2ActionPerformed
+
+    private void btContatos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btContatos2ActionPerformed
+        trocarTela(new Tela_Consulta());        // TODO add your handling code here:
+    }//GEN-LAST:event_btContatos2ActionPerformed
+
+    private void btAlterar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterar2ActionPerformed
+        trocarTela(new Tela_Remover());        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterar2ActionPerformed
+
+    private void btSoftware2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSoftware2ActionPerformed
+        trocarTela(new Tela_SobreoSoftware());        // TODO add your handling code here:
+    }//GEN-LAST:event_btSoftware2ActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) throws ClassNotFoundException, InstantiationException, IllegalAccessException, UnsupportedLookAndFeelException {
+    public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -253,10 +317,9 @@ public class Tela_Principal extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+        frame = new Tela_Principal();
+        frame.setVisible(true);
 
-
-        java.awt.EventQueue.invokeLater(() -> new Tela_Principal().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

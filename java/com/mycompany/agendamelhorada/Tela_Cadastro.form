@@ -30,8 +30,8 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jPanel1" max="32767" attributes="0"/>
                   <Component id="jPanel2" max="32767" attributes="0"/>
+                  <Component id="jPanel1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -82,7 +82,7 @@
                   <Component id="btAlterar" min="-2" pref="50" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btSoftware" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace pref="142" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="btSair" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
@@ -98,6 +98,9 @@
             <Property name="text" type="java.lang.String" value="In&#xed;cio"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btInicioActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btCadastro">
           <Properties>
@@ -119,6 +122,9 @@
             <Property name="text" type="java.lang.String" value="Alterar/Remover"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAlterarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSoftware">
           <Properties>
@@ -128,6 +134,9 @@
             <Property name="text" type="java.lang.String" value="Sobre o Software"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSoftwareActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btConsultar">
           <Properties>
@@ -137,6 +146,9 @@
             <Property name="text" type="java.lang.String" value="Consultar Contato"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btConsultarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSair">
           <Properties>
@@ -149,6 +161,9 @@
             <Property name="text" type="java.lang.String" value="Sair"/>
             <Property name="borderPainted" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSairActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -228,9 +243,9 @@
                       <Component id="btSalvar" min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jButton2" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="49" max="32767" attributes="0"/>
                   <Component id="btVoltar" min="-2" pref="40" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="50" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -302,6 +317,7 @@
             <Property name="text" type="java.lang.String" value="Digite o nome completo"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoNomeMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoNomeActionPerformed"/>
           </Events>
         </Component>
@@ -313,8 +329,12 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8b" green="74" red="64" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite o e-mail"/>
+            <Property name="text" type="java.lang.String" value="EX: aaaa@gmail.com"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoEmailMouseClicked"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoEmailActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="textoTelefone">
           <Properties>
@@ -324,8 +344,11 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8b" green="74" red="64" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite o telefone"/>
+            <Property name="text" type="java.lang.String" value="EX: (55)999999999"/>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoTelefoneMouseClicked"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btSalvar">
           <Properties>
@@ -340,6 +363,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="SALVAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btSalvarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
@@ -354,6 +380,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="LIMPAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btVoltar">
           <Properties>
@@ -365,6 +394,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="VOLTAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btVoltarActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

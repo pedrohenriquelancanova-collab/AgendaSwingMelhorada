@@ -4,8 +4,11 @@
  */
 package com.mycompany.agendamelhorada;
 
+import java.awt.Color;
 import java.awt.Image;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +28,35 @@ public class Tela_Consulta extends javax.swing.JPanel {
         imagemConsulta.setCaretPosition(imagemConsulta.getDocument().getLength());
         imagemConsulta.insertIcon(icon);
         
+        Arquivo arq = new Arquivo();
+        
+        String texto = arq.ler();
+
+        String[] dados = texto.split(";");
+        
+        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
+        
+        modelo.addRow(dados);
+        jLabel10.setVisible(false);
+        
+    }
+    
+    private void buscar(){
+        String nome = textoNomeBusca.getText();
+        
+        Arquivo arq = new Arquivo();
+        
+        Contato contato = arq.buscarPorNome(nome);
+        
+        if(contato != null){
+            textoSaidaNome.setText(nome);
+            textoSaidaEmail.setText(contato.getEmail());
+            textoSaidaTelefone.setText(contato.getTelefone());
+            jLabel10.setVisible(true);
+            textoSaidaEmail.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+            textoSaidaNome.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+            textoSaidaTelefone.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        }
     }
 
     /**
@@ -62,7 +94,6 @@ public class Tela_Consulta extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         textoNomeBusca = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabela = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -177,23 +208,30 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        setPreferredSize(new java.awt.Dimension(900, 600));
+
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 588));
 
         btInicio.setBackground(new java.awt.Color(23, 37, 84));
         btInicio.setText("Início");
         btInicio.setBorderPainted(false);
+        btInicio.addActionListener(this::btInicioActionPerformed);
 
         btCadastro.setBackground(new java.awt.Color(23, 37, 84));
         btCadastro.setText("Cadastrar Contato");
         btCadastro.setBorderPainted(false);
+        btCadastro.addActionListener(this::btCadastroActionPerformed);
 
         btAlterar.setBackground(new java.awt.Color(23, 37, 84));
         btAlterar.setText("Alterar/Remover");
         btAlterar.setBorderPainted(false);
+        btAlterar.addActionListener(this::btAlterarActionPerformed);
 
         btSoftware.setBackground(new java.awt.Color(23, 37, 84));
         btSoftware.setText("Sobre o Software");
         btSoftware.setBorderPainted(false);
+        btSoftware.addActionListener(this::btSoftwareActionPerformed);
 
         btConsultar.setBackground(new java.awt.Color(37, 99, 235));
         btConsultar.setText("Consultar Contato");
@@ -203,6 +241,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
         btSair.setForeground(new java.awt.Color(220, 38, 38));
         btSair.setText("Sair");
         btSair.setBorderPainted(false);
+        btSair.addActionListener(this::btSairActionPerformed);
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("MENU");
@@ -240,7 +279,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addComponent(btAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btSoftware, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btSair)
                 .addGap(22, 22, 22))
         );
@@ -262,32 +301,23 @@ public class Tela_Consulta extends javax.swing.JPanel {
         textoNomeBusca.setBackground(new java.awt.Color(255, 255, 255));
         textoNomeBusca.setForeground(new java.awt.Color(100, 116, 139));
         textoNomeBusca.setText("Digite o nome para buscar");
+        textoNomeBusca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textoNomeBuscaMouseClicked(evt);
+            }
+        });
         textoNomeBusca.addActionListener(this::textoNomeBuscaActionPerformed);
 
         jButton1.setBackground(new java.awt.Color(22, 163, 74));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("BUSCAR");
-
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setForeground(new java.awt.Color(51, 102, 255));
-        jButton3.setText("MOSTRAR TODOS");
-        jButton3.addActionListener(this::jButton3ActionPerformed);
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         tabela.setBackground(new java.awt.Color(255, 255, 255));
         tabela.setForeground(new java.awt.Color(0, 0, 0));
         tabela.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "E-mail", "Telefone"
@@ -364,19 +394,17 @@ public class Tela_Consulta extends javax.swing.JPanel {
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel9)
                         .addGap(18, 18, 18)
                         .addComponent(textoNomeBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(12, 12, 12))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -389,8 +417,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(textoNomeBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3))
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26)
@@ -406,15 +433,16 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -424,12 +452,36 @@ public class Tela_Consulta extends javax.swing.JPanel {
     }//GEN-LAST:event_textoNomeActionPerformed
 
     private void textoNomeBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomeBuscaActionPerformed
-        // TODO add your handling code here:
+                // TODO add your handling code here:
     }//GEN-LAST:event_textoNomeBuscaActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
+    private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
+        Tela_Principal.frame.voltarInicio();        // TODO add your handling code here:
+    }//GEN-LAST:event_btInicioActionPerformed
+
+    private void btCadastroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastroActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Cadastro());        // TODO add your handling code here:
+    }//GEN-LAST:event_btCadastroActionPerformed
+
+    private void btAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_Remover());        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarActionPerformed
+
+    private void btSoftwareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSoftwareActionPerformed
+        Tela_Principal.frame.trocarTela(new Tela_SobreoSoftware());        // TODO add your handling code here:
+    }//GEN-LAST:event_btSoftwareActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        System.exit(0);        // TODO add your handling code here:
+    }//GEN-LAST:event_btSairActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        buscar();        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void textoNomeBuscaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoNomeBuscaMouseClicked
+        textoNomeBusca.setText("");        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNomeBuscaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -444,7 +496,6 @@ public class Tela_Consulta extends javax.swing.JPanel {
     private javax.swing.JTextPane imagemConsulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
