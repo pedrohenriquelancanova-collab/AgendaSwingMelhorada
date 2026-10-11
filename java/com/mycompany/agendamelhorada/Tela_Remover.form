@@ -211,6 +211,14 @@
       </SubComponents>
     </Container>
   </NonVisualComponents>
+  <Properties>
+    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+      <Color blue="fc" green="fa" red="f8" type="rgb"/>
+    </Property>
+    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[1000, 650]"/>
+    </Property>
+  </Properties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -405,31 +413,26 @@
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jPanel4" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
-                                      <Component id="btVoltarTelaAlterar" min="-2" pref="110" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                                      <Component id="btAlterarTelaAlterar" min="-2" pref="110" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="btRemoverTelaRemover" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="btAlterarTelaAlterar" min="-2" pref="110" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btRemoverTelaRemover" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="textoEmail1" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="textoNome1" alignment="1" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textoTelefone1" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="textoNome1" alignment="1" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel9" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
+                                          <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="textoTelefone1" alignment="0" min="-2" pref="144" max="-2" attributes="0"/>
-                                  <Component id="jLabel9" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="jLabel10" alignment="0" min="-2" pref="71" max="-2" attributes="0"/>
-                                  <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="textoEmail1" alignment="1" min="-2" pref="144" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -467,13 +470,9 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btRemoverTelaRemover" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="btAlterarTelaAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btVoltarTelaAlterar" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btRemoverTelaRemover" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btAlterarTelaAlterar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   </Group>
@@ -546,9 +545,9 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8b" green="74" red="64" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite o nome completo"/>
           </Properties>
           <Events>
+            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="textoNome1FocusGained"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textoNome1ActionPerformed"/>
           </Events>
         </Component>
@@ -560,7 +559,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8b" green="74" red="64" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite o e-mail"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="textoTelefone1">
@@ -571,7 +569,6 @@
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="8b" green="74" red="64" type="rgb"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Digite o telefone"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btAlterarTelaAlterar">
@@ -587,6 +584,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="ALTERAR"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btAlterarTelaAlterarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btRemoverTelaRemover">
           <Properties>
@@ -601,17 +601,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="REMOVER"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btVoltarTelaAlterar">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="8b" green="74" red="64" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="VOLTAR"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btRemoverTelaRemoverActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -629,7 +621,7 @@
                   <Color blue="0" green="0" red="0" type="rgb"/>
                 </Property>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="3" rowCount="11">
+                  <Table columnCount="3" rowCount="0">
                     <Column editable="false" title="Nome" type="java.lang.Object"/>
                     <Column editable="false" title="E-mail" type="java.lang.Object"/>
                     <Column editable="false" title="Telefone" type="java.lang.Object"/>
@@ -659,6 +651,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaTelaAlterarMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

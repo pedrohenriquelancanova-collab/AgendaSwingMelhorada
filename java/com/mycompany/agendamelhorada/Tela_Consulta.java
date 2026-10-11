@@ -6,6 +6,8 @@ package com.mycompany.agendamelhorada;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
@@ -21,34 +23,48 @@ public class Tela_Consulta extends javax.swing.JPanel {
      */
     public Tela_Consulta() {
         initComponents();
-   
-        ImageIcon icon = new ImageIcon(getClass().getResource("/imagens/iconeContato.jpg"));
-        Image imagem = icon.getImage();
-        Image imagemRedimensionada = imagem.getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        imagemConsulta.setCaretPosition(imagemConsulta.getDocument().getLength());
-        imagemConsulta.insertIcon(icon);
-        
-        Arquivo arq = new Arquivo();
-        
-        String texto = arq.ler();
+        carregarTabela();
+        java.net.URL caminhoImg = getClass().getResource("/imagens/iconeContato.jpg");
+        if (caminhoImg != null) {
+            ImageIcon icone = new ImageIcon(caminhoImg);
+            Image imagemRedimensionada = icone.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+            ImageIcon iconeFinal = new ImageIcon(imagemRedimensionada);
 
-        String[] dados = texto.split(";");
-        
-        DefaultTableModel modelo = (DefaultTableModel) tabela.getModel();
-        
-        modelo.addRow(dados);
+            Imagem.setText("");
+            Imagem.setIcon(iconeFinal);
+        }
+
         jLabel10.setVisible(false);
-        
+
     }
-    
-    private void buscar(){
+
+    private void carregarTabela() {
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabela.getModel();
+
+        modelo.setRowCount(0);
+
+        Arquivo arq = new Arquivo("contatos.txt");
+        String conteudo = arq.ler();
+
+        if (conteudo != null && !conteudo.isEmpty() && !conteudo.equals("#!ERRO!#")) {
+            String[] linhas = conteudo.split("\n");
+            for (String linha : linhas) {
+                String[] dados = linha.split(";");
+                if (dados.length >= 3) {
+                    modelo.addRow(new Object[]{dados[0], dados[1], dados[2]});
+                }
+            }
+        }
+    }
+
+    private void buscar() {
         String nome = textoNomeBusca.getText();
-        
+
         Arquivo arq = new Arquivo();
-        
+
         Contato contato = arq.buscarPorNome(nome);
-        
-        if(contato != null){
+
+        if (contato != null) {
             textoSaidaNome.setText(nome);
             textoSaidaEmail.setText(contato.getEmail());
             textoSaidaTelefone.setText(contato.getTelefone());
@@ -57,6 +73,26 @@ public class Tela_Consulta extends javax.swing.JPanel {
             textoSaidaNome.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
             textoSaidaTelefone.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         }
+    }
+
+    private void capturarDados() {
+        String nome;
+        String email;
+        String telefone;
+
+        int linha = tabela.getSelectedRow();
+
+        email = tabela.getValueAt(linha, 1).toString();
+        nome = tabela.getValueAt(linha, 0).toString();
+        telefone = tabela.getValueAt(linha, 2).toString();
+
+        textoSaidaNome.setText(nome);
+        textoSaidaEmail.setText(email);
+        textoSaidaTelefone.setText(telefone);
+        jLabel10.setVisible(true);
+        textoSaidaEmail.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        textoSaidaNome.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        textoSaidaTelefone.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
     }
 
     /**
@@ -101,8 +137,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
         textoSaidaNome = new javax.swing.JLabel();
         textoSaidaEmail = new javax.swing.JLabel();
         textoSaidaTelefone = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        imagemConsulta = new javax.swing.JTextPane();
+        Imagem = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -208,7 +243,8 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setPreferredSize(new java.awt.Dimension(900, 600));
+        setBackground(new java.awt.Color(248, 250, 252));
+        setPreferredSize(new java.awt.Dimension(1000, 650));
 
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
         jPanel1.setPreferredSize(new java.awt.Dimension(200, 588));
@@ -332,6 +368,11 @@ public class Tela_Consulta extends javax.swing.JPanel {
             }
         });
         tabela.setShowGrid(true);
+        tabela.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabela);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -349,8 +390,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
         textoSaidaTelefone.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         textoSaidaTelefone.setForeground(new java.awt.Color(51, 102, 255));
 
-        imagemConsulta.setBackground(new java.awt.Color(255, 255, 255));
-        jScrollPane2.setViewportView(imagemConsulta);
+        Imagem.setText("jLabel11");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -364,7 +404,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
                     .addComponent(textoSaidaEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(textoSaidaTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -373,15 +413,16 @@ public class Tela_Consulta extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel10)
                 .addGap(8, 8, 8)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(textoSaidaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(textoSaidaEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(textoSaidaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(textoSaidaNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(textoSaidaEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(textoSaidaTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Imagem, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -403,7 +444,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
                         .addGap(18, 18, 18)
                         .addComponent(textoNomeBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)))
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -441,8 +482,8 @@ public class Tela_Consulta extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 570, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -452,7 +493,7 @@ public class Tela_Consulta extends javax.swing.JPanel {
     }//GEN-LAST:event_textoNomeActionPerformed
 
     private void textoNomeBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoNomeBuscaActionPerformed
-                // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_textoNomeBuscaActionPerformed
 
     private void btInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btInicioActionPerformed
@@ -483,8 +524,13 @@ public class Tela_Consulta extends javax.swing.JPanel {
         textoNomeBusca.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_textoNomeBuscaMouseClicked
 
+    private void tabelaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaMouseClicked
+        capturarDados();        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Imagem;
     private javax.swing.JButton btAlterar;
     private javax.swing.JButton btCadastro;
     private javax.swing.JButton btConsultar;
@@ -493,7 +539,6 @@ public class Tela_Consulta extends javax.swing.JPanel {
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSoftware;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JTextPane imagemConsulta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -511,7 +556,6 @@ public class Tela_Consulta extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabela;
     private javax.swing.JTextField textoEmail;
     private javax.swing.JTextField textoNome;

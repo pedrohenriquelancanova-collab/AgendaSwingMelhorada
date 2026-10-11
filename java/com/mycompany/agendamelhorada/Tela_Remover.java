@@ -4,17 +4,140 @@
  */
 package com.mycompany.agendamelhorada;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author pedro
  */
 public class Tela_Remover extends javax.swing.JPanel {
 
+    private String nomeOriginalParaEditar = "";
+
     /**
      * Creates new form Tela_Remover
      */
     public Tela_Remover() {
         initComponents();
+
+        carregarTabela();
+
+    }
+
+    private void carregarTabela() {
+        javax.swing.table.DefaultTableModel modelo = (javax.swing.table.DefaultTableModel) tabelaTelaAlterar.getModel();
+
+        modelo.setRowCount(0);
+
+        Arquivo arq = new Arquivo("contatos.txt");
+        String conteudo = arq.ler();
+
+        if (conteudo != null && !conteudo.isEmpty() && !conteudo.equals("#!ERRO!#")) {
+            String[] linhas = conteudo.split("\n");
+            for (String linha : linhas) {
+                String[] dados = linha.split(";");
+                if (dados.length >= 3) {
+                    modelo.addRow(new Object[]{dados[0], dados[1], dados[2]});
+                }
+            }
+        }
+    }
+
+    private void capturarDados() {
+        String nome;
+        String email;
+        String telefone;
+
+        int linha = tabelaTelaAlterar.getSelectedRow();
+
+        email = tabelaTelaAlterar.getValueAt(linha, 1).toString();
+        nome = tabelaTelaAlterar.getValueAt(linha, 0).toString();
+        telefone = tabelaTelaAlterar.getValueAt(linha, 2).toString();
+
+        textoEmail1.setText(email);
+        textoNome1.setText(nome);
+        textoTelefone1.setText(telefone);
+
+    }
+
+    private void removerContato() {
+        Arquivo arq = new Arquivo();
+        String nome = textoNome1.getText();
+
+        if (arq.remover(nome)) {
+            JOptionPane.showMessageDialog(null, "Contato removido com sucesso!");
+        } else {
+            JOptionPane.showMessageDialog(null, "Contato não encontrado");
+        }
+    }
+
+    private void atualizarTabela() {
+        DefaultTableModel modelo = (DefaultTableModel) tabelaTelaAlterar.getModel();
+
+        modelo.setRowCount(0);
+
+        Arquivo arq = new Arquivo("contatos.txt");
+        String conteudo = arq.ler();
+
+        if (!conteudo.isEmpty() && !conteudo.equals("#!ERRO!#")) {
+            String[] linhas = conteudo.split("\n");
+            for (String linha : linhas) {
+                String[] dados = linha.split(";");
+                if (dados.length >= 3) {
+                    modelo.addRow(new Object[]{dados[0], dados[1], dados[2]});
+                }
+            }
+        }
+    }
+
+    private void salvarTexto() {
+        nomeOriginalParaEditar = textoNome1.getText();
+
+    }
+
+    private void alterarContato() {
+        String nome = textoNome1.getText().trim();
+        String email = textoEmail1.getText().trim();
+        String telefone = textoTelefone1.getText().trim();
+
+        if (nome.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Digite o Nome");
+            return;
+        }
+
+        if (email.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Digite o Email");
+            return;
+        }
+
+        if (telefone.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Digite o Telefone");
+            return;
+        }
+
+        if (!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+            JOptionPane.showMessageDialog(null, "E-mail inválido!");
+            return;
+        }
+
+        if (!telefone.matches("\\(?\\d{2}\\)?\\s?9\\d{4}-?\\d{4}")) {
+            JOptionPane.showMessageDialog(null, "Celular inválido!");
+            return;
+        }
+
+        Arquivo arq = new Arquivo("contatos.txt");
+        Contato contato = new Contato(nome, email, telefone);
+
+        boolean sucesso = arq.alterar(this.nomeOriginalParaEditar, contato);
+
+        if (sucesso) {
+
+            JOptionPane.showMessageDialog(null, "Contato alterado com sucesso!");
+            atualizarTabela();
+        } else {
+            JOptionPane.showMessageDialog(null, "Contato não encontrado para alteração!");
+        }
     }
 
     /**
@@ -57,7 +180,6 @@ public class Tela_Remover extends javax.swing.JPanel {
         textoTelefone1 = new javax.swing.JTextField();
         btAlterarTelaAlterar = new javax.swing.JButton();
         btRemoverTelaRemover = new javax.swing.JButton();
-        btVoltarTelaAlterar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaTelaAlterar = new javax.swing.JTable();
         jPanel4 = new javax.swing.JPanel();
@@ -169,6 +291,9 @@ public class Tela_Remover extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        setBackground(new java.awt.Color(248, 250, 252));
+        setPreferredSize(new java.awt.Dimension(1000, 650));
+
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
 
         btInicio.setBackground(new java.awt.Color(23, 37, 84));
@@ -266,46 +391,36 @@ public class Tela_Remover extends javax.swing.JPanel {
 
         textoNome1.setBackground(new java.awt.Color(255, 255, 255));
         textoNome1.setForeground(new java.awt.Color(100, 116, 139));
-        textoNome1.setText("Digite o nome completo");
+        textoNome1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textoNome1FocusGained(evt);
+            }
+        });
         textoNome1.addActionListener(this::textoNome1ActionPerformed);
 
         textoEmail1.setBackground(new java.awt.Color(255, 255, 255));
         textoEmail1.setForeground(new java.awt.Color(100, 116, 139));
-        textoEmail1.setText("Digite o e-mail");
 
         textoTelefone1.setBackground(new java.awt.Color(255, 255, 255));
         textoTelefone1.setForeground(new java.awt.Color(100, 116, 139));
-        textoTelefone1.setText("Digite o telefone");
 
         btAlterarTelaAlterar.setBackground(new java.awt.Color(22, 163, 74));
         btAlterarTelaAlterar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btAlterarTelaAlterar.setForeground(new java.awt.Color(255, 255, 255));
         btAlterarTelaAlterar.setText("ALTERAR");
+        btAlterarTelaAlterar.addActionListener(this::btAlterarTelaAlterarActionPerformed);
 
         btRemoverTelaRemover.setBackground(new java.awt.Color(220, 38, 38));
         btRemoverTelaRemover.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btRemoverTelaRemover.setForeground(new java.awt.Color(255, 255, 255));
         btRemoverTelaRemover.setText("REMOVER");
-
-        btVoltarTelaAlterar.setBackground(new java.awt.Color(255, 255, 255));
-        btVoltarTelaAlterar.setForeground(new java.awt.Color(100, 116, 139));
-        btVoltarTelaAlterar.setText("VOLTAR");
+        btRemoverTelaRemover.addActionListener(this::btRemoverTelaRemoverActionPerformed);
 
         tabelaTelaAlterar.setBackground(new java.awt.Color(255, 255, 255));
         tabelaTelaAlterar.setForeground(new java.awt.Color(0, 0, 0));
         tabelaTelaAlterar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
                 "Nome", "E-mail", "Telefone"
@@ -320,6 +435,11 @@ public class Tela_Remover extends javax.swing.JPanel {
             }
         });
         tabelaTelaAlterar.setShowGrid(true);
+        tabelaTelaAlterar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaTelaAlterarMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tabelaTelaAlterar);
 
         jPanel4.setBackground(new java.awt.Color(219, 234, 254));
@@ -377,26 +497,23 @@ public class Tela_Remover extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(163, 163, 163)
-                                    .addComponent(btVoltarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addGap(34, 34, 34)
-                                    .addComponent(btAlterarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(btRemoverTelaRemover))))
+                            .addGap(34, 34, 34)
+                            .addComponent(btAlterarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(btRemoverTelaRemover))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(18, 18, 18)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(textoEmail1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(textoNome1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(textoTelefone1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(textoTelefone1)
+                                .addComponent(textoNome1)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(textoEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -425,12 +542,9 @@ public class Tela_Remover extends javax.swing.JPanel {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btRemoverTelaRemover)
-                            .addComponent(btAlterarTelaAlterar))
-                        .addGap(18, 18, 18)
-                        .addComponent(btVoltarTelaAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btRemoverTelaRemover)
+                        .addComponent(btAlterarTelaAlterar))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
@@ -485,6 +599,22 @@ public class Tela_Remover extends javax.swing.JPanel {
         System.exit(0);        // TODO add your handling code here:
     }//GEN-LAST:event_btSairActionPerformed
 
+    private void tabelaTelaAlterarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaTelaAlterarMouseClicked
+        capturarDados();        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaTelaAlterarMouseClicked
+
+    private void btAlterarTelaAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAlterarTelaAlterarActionPerformed
+        alterarContato();        // TODO add your handling code here:
+    }//GEN-LAST:event_btAlterarTelaAlterarActionPerformed
+
+    private void btRemoverTelaRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btRemoverTelaRemoverActionPerformed
+        removerContato();        // TODO add your handling code here:
+    }//GEN-LAST:event_btRemoverTelaRemoverActionPerformed
+
+    private void textoNome1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textoNome1FocusGained
+        salvarTexto();        // TODO add your handling code here:
+    }//GEN-LAST:event_textoNome1FocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAlterar;
@@ -497,7 +627,6 @@ public class Tela_Remover extends javax.swing.JPanel {
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSoftware;
     private javax.swing.JButton btVoltar;
-    private javax.swing.JButton btVoltarTelaAlterar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

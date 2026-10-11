@@ -130,6 +130,9 @@ public class Tela_SobreoSoftware extends javax.swing.JPanel {
                 .addContainerGap(68, Short.MAX_VALUE))
         );
 
+        setBackground(new java.awt.Color(248, 250, 252));
+        setPreferredSize(new java.awt.Dimension(1000, 650));
+
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
 
         btInicio.setBackground(new java.awt.Color(23, 37, 84));

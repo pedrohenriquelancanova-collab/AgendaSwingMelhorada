@@ -4,6 +4,8 @@
  */
 package com.mycompany.agendamelhorada;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -27,6 +29,15 @@ public class Tela_Principal extends javax.swing.JFrame {
 
         setSize(1000, 650);
         setLocationRelativeTo(null);
+        java.net.URL caminhoImg = getClass().getResource("/imagens/icone.png");
+        if (caminhoImg != null) {
+            ImageIcon icone = new ImageIcon(caminhoImg);
+            Image imagemRedimensionada = icone.getImage().getScaledInstance(50, 20, Image.SCALE_SMOOTH);
+            ImageIcon iconeFinal = new ImageIcon(imagemRedimensionada);
+            btInicio.setIcon(iconeFinal);
+            
+            
+        }
 
     }
 
@@ -73,7 +84,7 @@ public class Tela_Principal extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(248, 250, 252));
 
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
 

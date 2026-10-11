@@ -63,7 +63,10 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         textoTelefone = new javax.swing.JTextField();
         btSalvar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        btVoltar = new javax.swing.JButton();
+
+        setBackground(new java.awt.Color(248, 250, 252));
+        setForeground(new java.awt.Color(248, 250, 252));
+        setPreferredSize(new java.awt.Dimension(1000, 650));
 
         jPanel1.setBackground(new java.awt.Color(23, 37, 84));
 
@@ -202,11 +205,6 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         jButton2.setText("LIMPAR");
         jButton2.addActionListener(this::jButton2ActionPerformed);
 
-        btVoltar.setBackground(new java.awt.Color(255, 255, 255));
-        btVoltar.setForeground(new java.awt.Color(100, 116, 139));
-        btVoltar.setText("VOLTAR");
-        btVoltar.addActionListener(this::btVoltarActionPerformed);
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -221,17 +219,15 @@ public class Tela_Cadastro extends javax.swing.JPanel {
                         .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(44, 44, 44)
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(64, 64, 64)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(textoTelefone, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textoEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(64, 64, 64)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(textoTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoEmail, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textoNome, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -257,9 +253,7 @@ public class Tela_Cadastro extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(139, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -361,10 +355,6 @@ public class Tela_Cadastro extends javax.swing.JPanel {
         textoTelefone.setText("");// TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void btVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarActionPerformed
-        Tela_Principal.frame.voltarInicio();        // TODO add your handling code here:
-    }//GEN-LAST:event_btVoltarActionPerformed
-
     private void textoEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textoEmailActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_textoEmailActionPerformed
@@ -378,7 +368,6 @@ public class Tela_Cadastro extends javax.swing.JPanel {
     private javax.swing.JButton btSair;
     private javax.swing.JButton btSalvar;
     private javax.swing.JButton btSoftware;
-    private javax.swing.JButton btVoltar;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
